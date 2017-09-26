@@ -144,9 +144,9 @@ async def list_registered(ctx):
 	for key, value in memberdata.items():
 		user = bot.get_user(int(key))
 		if value['match'] != "":
-			embed.add_field(name="{}#{}".format(user.name, user.discriminator), value="•Interest: {}\n•Preferred Get: {}\n•Preferred Give: {}\n•Giving to: {}".format(value['interest'], value['preferred_get'], value['preferred_give'], bot.get_user(int(value['match'])).name))
+			embed.add_field(name="{}#{}".format(user.name, user.discriminator), value="•Interest: {}\n•Preferred Get: {}\n•Preferred Give: {}\n•Giving to: {}".format(value['interest'], value['preferred_get'], value['preferred_give'], bot.get_user(int(value['match'])).name), inline=False)
 		else:
-			embed.add_field(name="{}#{}".format(user.name, user.discriminator), value="•Interest: {}\n•Preferred Get: {}\n•Preferred Give: {}".format(value['interest'], value['preferred_get'], value['preferred_give']))
+			embed.add_field(name="{}#{}".format(user.name, user.discriminator), value="•Interest: {}\n•Preferred Get: {}\n•Preferred Give: {}".format(value['interest'], value['preferred_get'], value['preferred_give']), inline=False)
 	await ctx.send(embed=embed)
 
 @bot.command(hidden=True)
