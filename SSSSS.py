@@ -166,6 +166,8 @@ async def match_users(ctx, rand=""):
 			done = False
 			while not done:
 				giver_id = random.choice(list(memberdata.keys()))
+				if giver_id == user_id:
+					continue
 				if memberdata[giver_id]['match'] == "":
 					memberdata[giver_id]['match'] = user_id
 					done = True
