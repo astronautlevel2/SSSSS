@@ -42,6 +42,11 @@ async def register(ctx):
 			print("File is empty, using empty dict")
 			memberdata = {}
 
+	for user_id, data in memberdata.items():
+		if data['match'] != "":
+			await ctx.send("Sorry, but registration is over :(")
+			return
+
 	if (str(ctx.author.id) in memberdata.keys()):
 		await ctx.send("Already registered!")
 		return
@@ -99,6 +104,10 @@ async def unregister(ctx):
 		except JSONDecodeError:
 			print("File is empty, using empty dict")
 			memberdata = {}
+	for user_id, data in memberdata.items():
+		if data['match'] != "":
+			await ctx.send("Sorry, but it's too late to leave! If you __must__ leave, DM astronautlevel.")
+			return
 
 	try:
 		del memberdata[str(ctx.author.id)]
