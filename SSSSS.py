@@ -93,6 +93,7 @@ async def interest(ctx, interest):
 	else:
 		await ctx.send("You have to register first!")
 
+@commands.has_permissions(administrator=True)
 @bot.command(hidden=True)
 async def list_registered(ctx):
 	"""List all registered members"""
