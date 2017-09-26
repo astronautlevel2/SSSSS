@@ -129,7 +129,7 @@ async def interest(ctx, *, interest):
 	else:
 		await ctx.send("You have to register first!")
 
-@bot.command(hidden=True)
+@bot.command(hidden=True, aliases=['lr'])
 @commands.check(check_if_astro)
 async def list_registered(ctx):
 	"""List all registered members"""
@@ -144,7 +144,7 @@ async def list_registered(ctx):
 	for key, value in memberdata.items():
 		user = bot.get_user(int(key))
 		if value['match'] != "":
-			embed.add_field(name="{}#{}".format(user.name, user.discriminator), value="•Interest: {}\n•Preferred Get: {}\n•Preferred Give: {}\n•Giving to: {}".format(user.name, user.discriminator, value['interest'], value['preferred_get'], value['preferred_give'], bot.get_user(int(value['match'])).name))
+			embed.add_field(name="{}#{}".format(user.name, user.discriminator), value="•Interest: {}\n•Preferred Get: {}\n•Preferred Give: {}\n•Giving to: {}".format(value['interest'], value['preferred_get'], value['preferred_give'], bot.get_user(int(value['match'])).name))
 		else:
 			embed.add_field(name="{}#{}".format(user.name, user.discriminator), value="•Interest: {}\n•Preferred Get: {}\n•Preferred Give: {}".format(value['interest'], value['preferred_get'], value['preferred_give']))
 	await ctx.send(embed=embed)
@@ -166,8 +166,6 @@ async def match_users(ctx, rand=""):
 			done = False
 			while not done:
 				giver_id = random.choice(list(memberdata.keys()))
-				if giver_id == user_id:
-					continue
 				if memberdata[giver_id]['match'] == "":
 					memberdata[giver_id]['match'] = user_id
 					done = True
