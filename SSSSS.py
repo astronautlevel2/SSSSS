@@ -105,10 +105,10 @@ async def list_registered(ctx):
 			return
 
 	message = "```\n"
+	embed = discord.Embed(title="Registered Secret Santa List", description="")
 	for key, value in memberdata.items():
 		user = bot.get_user(int(key))
-		message += "{}#{}\n\tInterest: {}\n\tPreferred Get: {}\n\tPreferred Give: {}\n\n".format(user.name, user.discriminator, value['interest'], value['preferred_get'], value['preferred_give'])
-	message += "```"
-	await ctx.send(message)
+		embed.add_field(name="{}#{}".format(user.name, user.discriminator), value="•Interest: {}\n•Preferred Get: {}\n•Preferred Give: {}".format(value['interest'], value['preferred_get'], value['preferred_give']))
+	await ctx.send(embed=embed)
 
 bot.run(data['token'])
