@@ -140,15 +140,14 @@ async def list_registered(ctx):
 			ctx.send("No members registered!")
 			return
 
-	message = "```\n"
+	embed = discord.Embed(title="Registered Secret Santa List", description="")
 	for key, value in memberdata.items():
 		user = bot.get_user(int(key))
 		if value['match'] != "":
-			message += "{}#{}\n\tInterest: {}\n\tPreferred Get: {}\n\tPreferred Give: {}\n\tGiving to: {}\n\n".format(user.name, user.discriminator, value['interest'], value['preferred_get'], value['preferred_give'], bot.get_user(int(value['match'])).name)
+			embed.add_field(name="{}#{}".format(user.name, user.discriminator), value="•Interest: {}\n•Preferred Get: {}\n•Preferred Give: {}\n•Giving to: {}".format(user.name, user.discriminator, value['interest'], value['preferred_get'], value['preferred_give'], bot.get_user(int(value['match'])).name)
 		else:
-			message += "{}#{}\n\tInterest: {}\n\tPreferred Get: {}\n\tPreferred Give: {}\n\n".format(user.name, user.discriminator, value['interest'], value['preferred_get'], value['preferred_give'])
-	message += "```"
-	await ctx.send(message)
+			embed.add_field(name="{}#{}".format(user.name, user.discriminator), value="•Interest: {}\n•Preferred Get: {}\n•Preferred Give: {}".format(value['interest'], value['preferred_get'], value['preferred_give']))
+	await ctx.send(embed=embed)
 
 @bot.command(hidden=True)
 @commands.check(check_if_astro)
