@@ -171,6 +171,10 @@ async def match_users(ctx, rand=""):
 					memberdata[giver_id]['match'] = user_id
 					done = True
 
+		with open("database/registered_members.json", "w") as f:
+			json.dump(memberdata, f)
+			return
+
 	non_ideal_matches = []
 	ideal = True
 	for get_user_id, get_user_info in memberdata.items():
@@ -230,7 +234,7 @@ async def dm_matches(ctx):
 
 		user = bot.get_user(int(user_id))
 		receive_user = bot.get_user(int(data['match']))
-		message_string = "You are giving to {}#{}. They're interests are: ```{}``` They're preferred method of receiving is: {}".format(receive_user.name, receive_user.discriminator, memberdata[data['match']]['interest'], memberdata[data['match']]['preferred_get'])
+		message_string = "You are giving to {}#{}. Their interests are: ```{}``` Their preferred method of receiving is: {}".format(receive_user.name, receive_user.discriminator, memberdata[data['match']]['interest'], memberdata[data['match']]['preferred_get'])
 		await user.send(message_string)
 
 @bot.command(hidden=True)
